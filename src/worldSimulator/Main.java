@@ -1,19 +1,29 @@
 package worldSimulator;
 
-import static java.lang.System.*;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-import javax.swing.*;
+import static java.lang.System.*;
 
-
+/**
+ * Main class intialises Word and Simulates it in a Swing GUI
+ *
+ * @author isaacsultan
+ */
 class Main {
 
-
+    /**
+     * Runs 100 iterations of simulator and asks on command-line if you want to view it again
+     * 1 second delay between iterations
+     * Answer (yes) or (no)
+     *
+     * @param args None
+     */
     public static void main(String[] args) {
         World world = buildWorld();
         Boolean again = true;
@@ -26,9 +36,12 @@ class Main {
                 world.step();
                 String text = world.display(i);
                 gui.setText(text);
+
                 try {
                     TimeUnit.SECONDS.sleep(1);
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
+
             }
 
             out.println("Would you like to run the simulation again?");
@@ -44,31 +57,43 @@ class Main {
         }
     }
 
-
+    /**
+     * Builds a 6*6 World object and fills it with items
+     *
+     * @return world
+     */
     private static World buildWorld() {
-        World simulator = new World(6, 6);
+
+        World world = new World(6, 6);
+
 
         Item auto = new Autonomous();
         Item move = new Movable();
         Item imo = new Immovable();
 
-        simulator.add(imo, 2, 1);
-        simulator.add(imo, 3, 2);
-        simulator.add(imo, 4, 1);
-        simulator.add(imo, 2, 2);
-        simulator.add(imo, 2, 5);
+        world.add(imo, 2, 1);
+        world.add(imo, 3, 2);
+        world.add(imo, 4, 1);
+        world.add(imo, 2, 2);
+        world.add(imo, 2, 5);
 
-        simulator.add(move, 0, 1);
-        simulator.add(move, 0, 0);
-        simulator.add(move, 1, 4);
+        world.add(move, 0, 1);
+        world.add(move, 0, 0);
+        world.add(move, 1, 4);
 
-        simulator.add(auto, 5, 4);
-        simulator.add(auto, 3, 4);
+        world.add(auto, 5, 4);
+        world.add(auto, 3, 4);
 
-        return simulator;
+        return world;
+
     }
 }
 
+/**
+ * ViewSwing class creates a popup window with just a text-area where the current iteration can be viewed
+ *
+ * @author isaacsultan
+ */
 class ViewSwing {
     private JTextArea textArea;
 
@@ -96,6 +121,11 @@ class ViewSwing {
         mainFrame.setVisible(true);
     }
 
+    /**
+     * Sets the text of the gui
+     *
+     * @param string returned by display()
+     */
     public void setText(String string) {
         textArea.setText(string);
     }

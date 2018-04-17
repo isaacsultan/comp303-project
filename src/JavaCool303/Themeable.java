@@ -1,5 +1,11 @@
 package JavaCool303;
 
+/**
+ * Themable interface is implemented by any object that can have a theme applied
+ * @see Cool303Theme
+ * @author isaacsultan
+ * @version 1.0
+ */
 interface Themeable {
 
     /**
@@ -15,7 +21,7 @@ interface Themeable {
     Cool303Theme getTheme();
 
     /**
-     * Each Themeable class can have its component and child components pained.
+     * Each Themeable class can have its component and child components painted.
      * Components will be painted in correspondence to a given Cool303Theme.
      */
     void paintComponent();
